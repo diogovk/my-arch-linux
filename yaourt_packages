@@ -1,0 +1,4 @@
+#!/bin/bash
+
+yaourt oh-my-zsh-git --noconfirm
+cp /usr/share/oh-my-zsh/zshrc ~/.zshrc

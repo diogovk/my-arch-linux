@@ -1,0 +1,38 @@
+#!/bin/bash
+
+set -e
+NETDEV="$(cat /proc/net/dev | tail -2 | head -1 | cut -f 1 -d: )"
+[ -z "$DEFAULT_USER" ] && DEFAULT_USER=vini
+[ -z "$DEFAULT_TIMEZONE" ] && DEFAULT_TIMEZONE="America/Sao_Paulo"
+[ -z "$LOCAL_TIME" ] && LOCAL_TIME=/usr/share/zoneinfo/"$DEFAULT_TIMEZONE"
+
+PKGLIST="$(cat list.txt)"
+pacman --needed -Sy --noconfirm $PKGLIST
+systemctl enable kdm
+hostnamectl set-hostname $HOSTNAME
+systemctl enable dhcpcd@"$NETDEV".service
+systemctl enable vboxservice
+systemctl enable sshd.service
+
+pkgfile --update
+gpasswd -a vini vboxsf
+
+grep -q ^vboxguest /etc/modules-load.d/virtualbox.conf 2>/dev/null && {
+echo "vboxguest
+vboxsf
+vboxvideo
+" >> /etc/modules-load.d/virtualbox.conf
+}
+
+
+grep -q ^en_US.UTF-8 /etc/locale.gen 2>/dev/null || {
+echo en_US.UTF-8 UTF-8   >> /etc/locale.gen
+locale-gen
+}
+
+grep -q '^LANG=' /etc/locale.conf 2>/dev/null || echo 'LANG="en_US.UTF-8"' >> /etc/locale.conf
+
+[ -f "$LOCAL_TIME" ] && ln -sf "$LOCAL_TIME" /etc/localtime
+echo " ======================================== "
+echo "Add autodefrag and compress=zlib to /etc/fstab if you're using btrfs"
+

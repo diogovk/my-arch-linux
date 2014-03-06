@@ -1,0 +1,6 @@
+#!/bin/bash
+
+curl -sSL https://get.rvm.io | bash -s stable
+rvm get stable
+rvm requirements
+rvm install 2.1.0 --with-openssl-dir=$HOME/.rvm/usr

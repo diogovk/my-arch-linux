@@ -1,0 +1,28 @@
+#!/bin/bash
+
+export HOSTNAME=gurenl
+export DEFAULT_USER=vini
+BOOT_DEVICE=/dev/sda
+
+echo Type password for root and $DEFAULT_USER:
+read newpass
+
+set -e 
+pacstrap /mnt
+arch-chroot /mnt useradd -m -U "$DEFAULT_USER" -G http,network 
+arch-chroot /mnt passwd vini
+arch-chroot /mnt passwd root
+passwd "$DEFAULT_USER" << EOF
+$newpass
+$newpass
+EOF
+
+cp myarchconf /mnt/tmp
+arch-chroot /mnt /tmp/myarchconf
+
+genfstab -p -U /mnt >> /mnt/etc/fstab
+arch-chroot /mnt mkinitcpio -p linux -A btrfs
+arch-chroot /mnt grub-mkconfig > /mnt/boot/grub.conf
+arch-chroot /mnt grub-install "$BOOT_DEVICE"
+
+

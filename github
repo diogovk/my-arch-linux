@@ -1,0 +1,17 @@
+#!/bin/bash
+
+cd "$HOME"
+mkdir github
+cd github
+git clone https://github.com/elixir-lang/elixir
+git clone https://github.com/dynamo/dynamo
+git clone https://github.com/robbyrussell/oh-my-zsh
+git clone https://github.com/amix/vimrc
+ln -s "$PWD/vimrc" "$HOME/.vim_rutime"
+cd "$HOME/.vim_rutime"
+echo installing awesome_vimrc
+sh install_awesome_vimrc.sh
+cd "$HOME"/.vim_runtime/sources_non_forked
+git clone https://github.com/elixir-lang/vim-elixir
+git clone https://github.com/tpope/vim-rails
+
