@@ -1,5 +1,10 @@
 #!/bin/bash
 
+cd "$HOME"
+mkdir github
+cd github
+git clone https://github.com/robbyrussell/oh-my-zsh
+ln -s "$PWD"/oh-my-zsh "$HOME"/.oh-my-zsh
 cp -ai dio.zsh-theme "$HOME"/.oh-my-zsh/themes/
 cp -ai dircolors.256dark "$HOME"/.dir_colors
 

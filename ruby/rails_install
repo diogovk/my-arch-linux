@@ -1,0 +1,13 @@
+#!/bin/bash
+
+curl -sSL https://get.rvm.io | bash -s stable
+rvm get stable
+rvm requirements
+rvm install 2.1.0 --with-openssl-dir=$HOME/.rvm/usr
+
+
+echo 'If you experience problems compiling ruby with readline >= 6.3 consider 
+trying an older version (<= 6.2). Packages are available in this directory.
+Consider also adding to your /etc/pacman.conf:
+  IgnorePkg   = readline
+which will stop it from beiyng updated'
