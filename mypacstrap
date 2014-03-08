@@ -4,25 +4,44 @@ export HOSTNAME=gurenl
 export DEFAULT_USER=vini
 BOOT_DEVICE=/dev/sda
 
+SWAP_PARTITION=/dev/sda3
+ROOT_PARTITION=/dev/sda5
+
 echo Type password for root and $DEFAULT_USER:
 read newpass
 
 set -e 
+#mkfs.btrfs $ROOT_PARTITION
+#mkswap $SWAP_PARTITION
+
+mount $ROOT_PARTITION /mnt
+swapon $SWAP_PARTITION
+
 pacstrap /mnt
 arch-chroot /mnt useradd -m -U "$DEFAULT_USER" -G http,network 
-arch-chroot /mnt passwd vini
-arch-chroot /mnt passwd root
-passwd "$DEFAULT_USER" << EOF
+
+arch-chroot /mnt passwd "$DEFAULT_USER" << EOF
 $newpass
 $newpass
 EOF
 
-cp myarchconf /mnt/tmp
-arch-chroot /mnt /tmp/myarchconf
+arch-chroot /mnt passwd "root" << EOF
+$newpass
+$newpass
+EOF
 
-genfstab -p -U /mnt >> /mnt/etc/fstab
-arch-chroot /mnt mkinitcpio -p linux -A btrfs
+WORKDIR=/mnt/home/"$DEFAULT_USER"
+cp -a myarchconf "$WORKDIR"
+cp list.txt "$WORKDIR"
+echo 'HOSTNAME='"$HOSTNAME" > "$WORKDIR"/default_conf
+echo 'DEFAULT_USER='"$DEFAULT_USER" >> "$WORKDIR"/default_conf
+arch-chroot /mnt /home/"$DEFAULT_USER"/myarchconf
+
+genfstab -p -U /mnt > /mnt/etc/fstab
+arch-chroot /mnt mkinitcpio -p linux -A btrfs || true
 arch-chroot /mnt grub-mkconfig > /mnt/boot/grub.conf
 arch-chroot /mnt grub-install "$BOOT_DEVICE"
 
+rm -f "$WORKDIR"/default_conf "$WORKDIR"/list.txt "$WORKDIR"/myarchconf
+echo Success!
 

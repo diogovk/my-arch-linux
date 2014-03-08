@@ -1,21 +1,29 @@
 #!/bin/bash
 
-set -e
+MYDIR=$(dirname $0)
+cd $MYDIR
+source ./default_conf
+
 NETDEV="$(cat /proc/net/dev | tail -2 | head -1 | cut -f 1 -d: )"
+set -e
+
 [ -z "$DEFAULT_USER" ] && DEFAULT_USER=vini
 [ -z "$DEFAULT_TIMEZONE" ] && DEFAULT_TIMEZONE="America/Sao_Paulo"
 [ -z "$LOCAL_TIME" ] && LOCAL_TIME=/usr/share/zoneinfo/"$DEFAULT_TIMEZONE"
+[ -z "$HOSTNAME" ] && HOSTNAME=alinux01
 
 PKGLIST="$(cat list.txt)"
-pacman --needed -Sy --noconfirm $PKGLIST
+pacman --needed -Syu --noconfirm $PKGLIST
 systemctl enable kdm
-hostnamectl set-hostname $HOSTNAME
-systemctl enable dhcpcd@"$NETDEV".service
+#hostnamectl set-hostname $HOSTNAME
+echo "$HOSTNAME" > /etc/hostname
+set +e
+[ "$NETDEV" ] && systemctl enable dhcpcd@"$NETDEV".service
 systemctl enable vboxservice
 systemctl enable sshd.service
 
 pkgfile --update
-gpasswd -a vini vboxsf
+gpasswd -a "$DEFAULT_USER" vboxsf
 
 grep -q ^vboxguest /etc/modules-load.d/virtualbox.conf 2>/dev/null && {
 echo "vboxguest
@@ -25,12 +33,13 @@ vboxvideo
 }
 
 
+grep -q '^LANG=' /etc/locale.conf 2>/dev/null || echo 'LANG="en_US.UTF-8"' >> /etc/locale.conf
+
 grep -q ^en_US.UTF-8 /etc/locale.gen 2>/dev/null || {
 echo en_US.UTF-8 UTF-8   >> /etc/locale.gen
 locale-gen
 }
 
-grep -q '^LANG=' /etc/locale.conf 2>/dev/null || echo 'LANG="en_US.UTF-8"' >> /etc/locale.conf
 
 [ -f "$LOCAL_TIME" ] && ln -sf "$LOCAL_TIME" /etc/localtime
 echo " ======================================== "
