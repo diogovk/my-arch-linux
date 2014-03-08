@@ -1,4 +1,5 @@
 alsa-utils
+rsync
 os-prober
 tigervnc
 amarok
