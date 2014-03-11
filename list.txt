@@ -1,4 +1,6 @@
 alsa-utils
+rfkill
+wireless_tools
 rsync
 os-prober
 tigervnc
