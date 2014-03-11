@@ -10,9 +10,14 @@ grep -q 'eval ".(rbenv init -)"' ~/.zshrc || {
   echo 'eval "$(rbenv init -)"' >> ~/.zshrc
 }
 eval "$(rbenv init -)"
-rbenv install "$DEFAULT_RUBY_VERSION"
-rbenv global "$DEFAULT_RUBY_VERSION"
+rbenv versions | grep -q '^  '"$DEFAULT_RUBY_VERSION"$ || {
+  rbenv install "$DEFAULT_RUBY_VERSION"
+  rbenv global "$DEFAULT_RUBY_VERSION"
+}
+
 gem install bundler
+
+bundle update
 
 echo 'If you experience problems compiling ruby with readline >= 6.3 consider
 trying an older version (<= 6.2). Packages are available in this directory.
