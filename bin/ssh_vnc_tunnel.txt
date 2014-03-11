@@ -1,0 +1,4 @@
+
+#on remote execute
+ ssh -t -L 5900:localhost:5900 vini@archdiogo 'bin/start_vnc'
+

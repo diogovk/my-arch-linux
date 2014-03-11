@@ -1,0 +1,4 @@
+#!/bin/bash
+
+x11vnc -localhost -display :0 -forever -xauth /home/vini/.Xauthority
+
