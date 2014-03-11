@@ -1,4 +1,5 @@
 alsa-utils
+os-prober
 tigervnc
 amarok
 apache
@@ -28,7 +29,6 @@ gnupg
 grub
 gvim
 kde-l10n-ja
-kde
 kdebase-dolphin
 kdebase-katepart
 kdebase-kdepasswd
