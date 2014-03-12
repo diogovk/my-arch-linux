@@ -1,5 +1,6 @@
 #!/bin/bash
 
+source ../util.sh
  
 mkdir -p "$HOME"/github
 cd "$HOME"/github
@@ -17,5 +18,12 @@ grep -q "^TERM=" "$HOME"/.zshrc || {
 grep -q "\.dir_colors" "$HOME"/.zshrc || {
   echo eval '`dircolors $HOME/.dir_colors`' >> "$HOME"/.zshrc
 }
+
+my_yaourt adobe-source-code-pro-fonts
+my_yaourt adobe-source-sans-pro-fonts
+my_yaourt otf-powerline-symbols-git
+
 echo 'OK. Now change change ZSH_THEME to "dio" in your .zshrc (ZSH_THEME="dio")'
+echo 'Also, configure you terminal to use the Solarized theme, found in $PWD'
+echo 'and set it to use the adobe-source font'
 
