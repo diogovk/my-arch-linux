@@ -1,4 +1,8 @@
 alsa-utils
+cdrdao
+dvd+rw-tools
+k3b
+mlocate
 lsof
 nodejs
 rfkill

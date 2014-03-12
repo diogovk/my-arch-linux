@@ -1,5 +1,6 @@
 #!/bin/bash
 
+set -e
 source ../util.sh
  
 mkdir -p "$HOME"/github
