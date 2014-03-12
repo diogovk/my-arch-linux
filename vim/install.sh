@@ -1,6 +1,7 @@
 #!/bin/bash
 
 set -e
+source ../util.sh
 mydir="$PWD"
 
 mkdir -p "$HOME"/github

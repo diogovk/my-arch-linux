@@ -20,7 +20,8 @@ set +e
 systemctl enable vboxservice
 systemctl enable sshd.service
 
-pkgfile --update
+find /var/cache/pkgfile/core.files -mtime -30 | read || pkgfile --update
+
 gpasswd -a "$DEFAULT_USER" vboxsf
 
 grep -q ^vboxguest /etc/modules-load.d/virtualbox.conf 2>/dev/null && {
