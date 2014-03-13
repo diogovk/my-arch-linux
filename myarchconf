@@ -2,9 +2,8 @@
 
 MYDIR=$(dirname $0)
 cd $MYDIR
-source ./default_conf
+source default_conf
 
-NETDEV="$(cat /proc/net/dev | tail -2 | head -1 | cut -f 1 -d: )"
 set -e
 
 [ -z "$DEFAULT_USER" ] && DEFAULT_USER=vini
@@ -18,7 +17,6 @@ systemctl enable kdm
 #hostnamectl set-hostname $HOSTNAME
 echo "$HOSTNAME" > /etc/hostname
 set +e
-[ "$NETDEV" ] && systemctl enable dhcpcd@"$NETDEV".service
 systemctl enable vboxservice
 systemctl enable sshd.service
 

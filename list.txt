@@ -1,4 +1,6 @@
 alsa-utils
+lsof
+nodejs
 rfkill
 wireless_tools
 rsync
