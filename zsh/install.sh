@@ -26,4 +26,6 @@ my_yaourt otf-powerline-symbols-git
 echo 'OK. Now change change ZSH_THEME to "dio" in your .zshrc (ZSH_THEME="dio")'
 echo 'Also, configure you terminal to use the Solarized theme, found in $PWD'
 echo 'and set it to use the adobe-source font'
+echo 'Finally, consider enabling zsh plugins based on you needs by editing ~/.zshrc'
+echo 'Example: plugins=(git rbenv archlinux sudo colored-man command-not-found gem systemd web-search bundler rails)'
 
