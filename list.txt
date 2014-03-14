@@ -1,4 +1,11 @@
 alsa-utils
+cdrdao
+kdeconnect
+kdemultimedia-kmix
+dvd+rw-tools
+gstreamer0.10-ffmpeg
+k3b
+mlocate
 lsof
 nodejs
 rfkill
@@ -102,3 +109,6 @@ yakuake
 zsh
 zsh-completions
 kde-l10n-pt_br
+gstreamer0.10-good-plugins 
+gstreamer0.10-ugly-plugins
+kdemultimedia-dragonplayer

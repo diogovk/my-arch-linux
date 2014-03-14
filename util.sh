@@ -8,3 +8,11 @@ my_yaourt(){
     yaourt -S "$package" --noconfirm
   }
 }
+
+my_pacman(){
+  package="$1"
+  pacman -Q "$package" 2>/dev/null ||{
+    echo Installing "$package"
+    sudo pacman -Syu --needed --noconfirm "$package"
+  }
+}
