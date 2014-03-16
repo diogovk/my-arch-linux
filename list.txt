@@ -23,6 +23,11 @@ cifs-utils
 curl
 dialog
 diffutils
+kdiff3
+dos2unix
+mercurial
+ttf-liberation
+opendesktop-fonts
 dnsutils
 elfutils
 erlang
@@ -112,3 +117,4 @@ kde-l10n-pt_br
 gstreamer0.10-good-plugins 
 gstreamer0.10-ugly-plugins
 kdemultimedia-dragonplayer
+easytag

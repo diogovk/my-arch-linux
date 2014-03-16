@@ -10,3 +10,4 @@ if has('mouse')
   set mouse=a
 endif
 
+nnoremap <C-Q> :!bundle exec rspec %<Enter>

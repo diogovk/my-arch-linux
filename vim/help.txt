@@ -1,0 +1,4 @@
+
+<C-O> Go to previous location
+<C-I> Go back to next location
+<C-Q> bundle exec rspec <this file>
