@@ -28,6 +28,7 @@ dos2unix
 mercurial
 ttf-liberation
 opendesktop-fonts
+jdk7-openjdk
 dnsutils
 elfutils
 erlang
