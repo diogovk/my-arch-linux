@@ -29,6 +29,8 @@ mercurial
 ttf-liberation
 opendesktop-fonts
 jdk7-openjdk
+gimp
+unrar
 dnsutils
 elfutils
 erlang
